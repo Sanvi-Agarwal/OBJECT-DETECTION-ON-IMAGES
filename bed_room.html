@@ -23,16 +23,17 @@
         <h3 class="btn btn-success" style="font-size: 15px;">
             There are 6 big objects in the image from which cocossd model has Detected 2 objects
         </h3>
+        <br><br><br>
     </center>
     <script>
         objectDetector = "";
 
         img = "";
-        object = [];
+        objects = [];
         status = "";
 
         function preload() {
-            img = loadImage("Bed Room.jpg");
+            img = loadImage("BedRoom.jpg");
         }
 
         function setup() {
@@ -54,6 +55,22 @@
             }
             console.log(results);
             objects = results;
+        }
+
+        function draw() {
+            if (status != "") {
+                image(img, 0, 0, 640, 420);
+                for (i = 0; i < objects.length; i++) {
+                    document.getElementById("status").innerHTML = "Status : Object Detected";
+
+                    fill('#FF0000');
+                    percent = floor(objects[i].confidence * 100);
+                    text(objects[i].label + " " + percent + "%", objects[i].x + 5, objects[i].y + 15);
+                    noFill();
+                    stroke("#FF0000");
+                    rect(objects[i].x, objects[i].y, objects[i].width, objects[i].height);
+                }
+            }
         }
     </script>
 </body>
